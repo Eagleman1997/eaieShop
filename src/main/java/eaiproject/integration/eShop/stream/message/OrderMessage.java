@@ -5,16 +5,19 @@
 
 package eaiproject.integration.eShop.stream.message;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-
+import eaiproject.integration.eShop.data.domain.Shampoo;
 
 public class OrderMessage {
     private String orderId;
     private String customerId;
     private Double amount;
     private Integer numberOfItems;
-    private List<OrderItem> shampoos;
+    private List<Shampoo> shampoos;
     private String transactionId;
     private String trackingId;
     private String packingSlipId;
@@ -26,24 +29,34 @@ public class OrderMessage {
 	private String shipping_address_location;
 	private String loyalityPoints;
 	private String parcel_service;
+	private Date creation_date;
 
     public OrderMessage() {
     }
 
-    public OrderMessage(String orderId, String customerId, Double amount, Integer numberOfItems, List<OrderItem> shampoos, String status, String first_name, String last_name, String shipping_address_name, String shipping_address_street, String shipping_address_location, String loyalityPoints, String parcel_service) {
+    public OrderMessage(String orderId, String customerId, Double amount, Integer numberOfItems, List<Shampoo> shampoos, String first_name, String last_name, String shipping_address_name, String shipping_address_street, String shipping_address_location, String parcel_service, String status, String string) {
         this.orderId = orderId;
         this.customerId = customerId;
+        if (amount == 0.00) {
+    		double price = 0.00;
+    		for (Shampoo shampoo : shampoos) {
+    			price += shampoo.getPrice();
+    		}
+    		this.amount = price;
+        } else {
+        	this.amount = amount;
+        }
         this.amount = amount;
         this.numberOfItems = numberOfItems;
         this.shampoos = shampoos;
-        this.status = status;
     	this.first_name = first_name;
     	this.last_name = last_name;
     	this.shipping_address_name = shipping_address_name;
     	this.shipping_address_street = shipping_address_street;
     	this.shipping_address_location = shipping_address_location;
-    	this.loyalityPoints = loyalityPoints;
     	this.parcel_service = parcel_service;
+        this.status = status;
+        this.creation_date = new Timestamp(System.currentTimeMillis());
     }
 
     public String getOrderId() {
@@ -78,11 +91,11 @@ public class OrderMessage {
         this.numberOfItems = numberOfItems;
     }
 
-    public List<OrderItem> getItems() {
+    public List<Shampoo> getItems() {
         return shampoos;
     }
 
-    public void setItems(List<OrderItem> shampoos) {
+    public void setItems(List<Shampoo> shampoos) {
         this.shampoos = shampoos;
     }
 
@@ -117,6 +130,14 @@ public class OrderMessage {
     public void setStatus(String status) {
         this.status = status;
     }
+    
+	public String getLoyalityPoints() {
+		return loyalityPoints;
+	}
+
+	public void setLoyalityPoints(String loyalityPoints) {
+		this.loyalityPoints = loyalityPoints;
+	}
 
     @Override
     public String toString() {
@@ -135,20 +156,11 @@ public class OrderMessage {
                 ", shipping_address_name='" + shipping_address_name + '\'' +
                 ", shipping_address_street='" + shipping_address_street + '\'' +
                 ", shipping_address_location='" + shipping_address_location + '\'' +
-                ", loyalityPoints= " + loyalityPoints + '\'' + 
                 ", parcel_service='" + parcel_service + '\'' +
                 '}';
     }
 
-    public String getLoyalityPoints() {
-		return loyalityPoints;
-	}
-
-	public void setLoyalityPoints(String loyalityPoints) {
-		this.loyalityPoints = loyalityPoints;
-	}
-
-	public static class OrderItem {
+    public static class OrderItem {
         private String itemId;
         private String productId;
         private Integer quantity;
@@ -195,4 +207,5 @@ public class OrderMessage {
                     '}';
         }
     }
+
 }

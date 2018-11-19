@@ -11,7 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import eaiproject.integration.eShop.business.client.CheckoutAdapter;
-import eaiproject.integration.eShop.business.message.OrderMessage;
+import eaiproject.integration.eShop.data.domain.Shampoo;
+import eaiproject.integration.eShop.stream.message.OrderMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +25,20 @@ public class CheckoutController {
 
     @GetMapping(path = "/checkout", produces = "text/plain")
     public ResponseEntity<String> getCheckout(){
-        List<OrderMessage.OrderItem> orderItems = new ArrayList<>();
-        orderItems.add(new OrderMessage.OrderItem("1", UUID.randomUUID().toString(), 15));
+    	List<Shampoo> shampoos = new ArrayList<>();
+    	
+    	// Generate some Shampoos
+    	shampoos.add(new Shampoo(Integer.parseInt(UUID.randomUUID().toString()), "Africa", "Axe", "AllinOneXL", 8.30));
+    	shampoos.add(new Shampoo(Integer.parseInt(UUID.randomUUID().toString()), "Africa", "Black", "AllinOneXL", 9.30));
+    	shampoos.add(new Shampoo(Integer.parseInt(UUID.randomUUID().toString()), "Africa", "Choco", "AllinOneXL", 5.30));
+    	shampoos.add(new Shampoo(Integer.parseInt(UUID.randomUUID().toString()), "Africa", "White", "AllinOneXL", 10.30));
+    	
         OrderMessage orderMessage = new OrderMessage(
         		UUID.randomUUID().toString(), // OrderId (New)
         		"1", // CustomerId
-        		2000.00, // Amount - Double
+        		0.00, // Amount - Double // Wenn nichts mitgegeben wird das berechnet von den Shampoos
         		3, //NumersOfItem - Integer
-        		orderItems, //Items - List
+        		shampoos, // order
         		"checkout", //Status
         		"", // First Name
         		"", // Last Name

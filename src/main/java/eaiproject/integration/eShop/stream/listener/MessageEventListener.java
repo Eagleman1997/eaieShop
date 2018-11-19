@@ -11,12 +11,11 @@ import java.util.UUID;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import eaiproject.integration.eShop.business.message.OrderMessage;
 import eaiproject.integration.eShop.business.service.eShopService;
 import eaiproject.integration.eShop.data.domain.Customer;
-import eaiproject.integration.eShop.data.domain.Order;
 import eaiproject.integration.eShop.data.repository.CustomerRepository;
 import eaiproject.integration.eShop.stream.message.EventMessage;
+import eaiproject.integration.eShop.stream.message.OrderMessage;
 import eaiproject.integration.eShop.stream.sender.MessageEventSender;
 
 import org.slf4j.Logger;

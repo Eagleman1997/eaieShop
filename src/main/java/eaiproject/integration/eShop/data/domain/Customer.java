@@ -20,7 +20,6 @@ public class Customer {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_fk")
-	private List<Order> orders;
 	
 
 	public Customer() {
@@ -126,16 +125,6 @@ public class Customer {
 
 	public void setNmbr_of_loyalty_points(Integer nmbr_of_loyalty_points) {
 		this.nmbr_of_loyalty_points = nmbr_of_loyalty_points;
-	}
-
-
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
 	}
 	
 	

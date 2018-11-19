@@ -10,7 +10,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import eaiproject.integration.eShop.business.message.OrderMessage;
+import eaiproject.integration.eShop.stream.message.OrderMessage;
+
 
 @Component
 public class CheckoutAdapter {

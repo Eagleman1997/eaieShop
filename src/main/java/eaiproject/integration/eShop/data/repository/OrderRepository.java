@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
-import eaiproject.eaiprojectOrderPlacement.data.domain.Order;
+import eaiproject.integration.eShop.data.domain.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Integer>{
 	

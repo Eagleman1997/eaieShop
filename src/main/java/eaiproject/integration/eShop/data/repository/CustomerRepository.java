@@ -3,7 +3,8 @@ package eaiproject.integration.eShop.data.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
-import eaiproject.eaiprojectOrderPlacement.data.domain.Customer;
+import eaiproject.integration.eShop.data.domain.Customer;
+
 
 
 

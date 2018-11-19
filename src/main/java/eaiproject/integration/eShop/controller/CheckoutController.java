@@ -26,7 +26,21 @@ public class CheckoutController {
     public ResponseEntity<String> getCheckout(){
         List<OrderMessage.OrderItem> orderItems = new ArrayList<>();
         orderItems.add(new OrderMessage.OrderItem("1", UUID.randomUUID().toString(), 15));
-        OrderMessage orderMessage = new OrderMessage(UUID.randomUUID().toString(), "1", 2000D, 15, orderItems, "Order Placed");
+        OrderMessage orderMessage = new OrderMessage(
+        		UUID.randomUUID().toString(), // OrderId (New)
+        		"1", // CustomerId
+        		2000.00, // Amount - Double
+        		3, //NumersOfItem - Integer
+        		orderItems, //Items - List
+        		"checkout", //Status
+        		"", // First Name
+        		"", // Last Name
+        		"", // shipping_address_name
+        		"", // shipping_address_street
+        		"", // shipping_address_location
+        		"", // loyalityPoints
+        		"" // parcel_service
+        		); 
         checkoutAdapter.doCheckout(orderMessage);
         return ResponseEntity.ok(orderMessage.toString());
     }

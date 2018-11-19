@@ -3,9 +3,11 @@
  * All rights reserved.
  */
 
-package eaiproject.integration.eShop.business.message;
+package eaiproject.integration.eShop.stream.message;
 
 import java.util.List;
+
+
 
 public class OrderMessage {
     private String orderId;
@@ -28,19 +30,20 @@ public class OrderMessage {
     public OrderMessage() {
     }
 
-    public OrderMessage(String orderId, String customerId, Double amount, Integer numberOfItems, List<OrderItem> shampoos, String first_name, String last_name, String shipping_address_name, String shipping_address_street, String shipping_address_location, String parcel_service, String status, String string) {
+    public OrderMessage(String orderId, String customerId, Double amount, Integer numberOfItems, List<OrderItem> shampoos, String status, String first_name, String last_name, String shipping_address_name, String shipping_address_street, String shipping_address_location, String loyalityPoints, String parcel_service) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.amount = amount;
         this.numberOfItems = numberOfItems;
         this.shampoos = shampoos;
+        this.status = status;
     	this.first_name = first_name;
     	this.last_name = last_name;
     	this.shipping_address_name = shipping_address_name;
     	this.shipping_address_street = shipping_address_street;
     	this.shipping_address_location = shipping_address_location;
+    	this.loyalityPoints = loyalityPoints;
     	this.parcel_service = parcel_service;
-        this.status = status;
     }
 
     public String getOrderId() {
@@ -114,14 +117,6 @@ public class OrderMessage {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-	public String getLoyalityPoints() {
-		return loyalityPoints;
-	}
-
-	public void setLoyalityPoints(String loyalityPoints) {
-		this.loyalityPoints = loyalityPoints;
-	}
 
     @Override
     public String toString() {
@@ -140,11 +135,20 @@ public class OrderMessage {
                 ", shipping_address_name='" + shipping_address_name + '\'' +
                 ", shipping_address_street='" + shipping_address_street + '\'' +
                 ", shipping_address_location='" + shipping_address_location + '\'' +
+                ", loyalityPoints= " + loyalityPoints + '\'' + 
                 ", parcel_service='" + parcel_service + '\'' +
                 '}';
     }
 
-    public static class OrderItem {
+    public String getLoyalityPoints() {
+		return loyalityPoints;
+	}
+
+	public void setLoyalityPoints(String loyalityPoints) {
+		this.loyalityPoints = loyalityPoints;
+	}
+
+	public static class OrderItem {
         private String itemId;
         private String productId;
         private Integer quantity;
@@ -191,5 +195,4 @@ public class OrderMessage {
                     '}';
         }
     }
-
 }

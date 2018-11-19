@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import eaiproject.integration.eShop.business.client.CheckoutAdapter;
 import eaiproject.integration.eShop.data.domain.Shampoo;
+import eaiproject.integration.eShop.stream.message.EventMessage;
 import eaiproject.integration.eShop.stream.message.OrderMessage;
 
 import java.util.ArrayList;

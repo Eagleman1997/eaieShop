@@ -52,20 +52,7 @@ public class MessageEventListener {
         logger.info("Payload received: "+ orderMessage.toString());
         Customer customer = eShopService.addLoyalityPoints(Integer.parseInt(orderMessage.getCustomerId()), Integer.parseInt(orderMessage.getLoyalityPoints()));
         orderMessage.setStatus("LoyalityPoints updated");
-        messageEventSender.send(new EventMessage<>("UpdateLoyalityPoints", orderMessage));
+        messageEventSender.send(new EventMessage<>("UpdatePayment", orderMessage));
     }
-    
-    @StreamListener(target = Sink.INPUT,
-            condition="(headers['type']?:'')=='CalculateLoyalityPoints'")
-    @Transactional
-    public void caluclateLoyalityPoints(@Payload EventMessage<OrderMessage> eventMessage) throws Exception {
-        OrderMessage orderMessage = eventMessage.getPayload();
-        logger.info("Payload received: "+ orderMessage.toString());
-        Customer customer = eShopService.caluclateLoyalityPoints(Integer.parseInt(orderMessage.getCustomerId()), Integer.parseInt(orderMessage.getLoyalityPoints()));
-        orderMessage.setStatus("LoyalityPoints caluclated but not updated: " + customer.getNmbr_of_loyalty_points());
-        messageEventSender.send(new EventMessage<>("UpdateLoyalityPoints", orderMessage));
-    }
-    
-
 
 }

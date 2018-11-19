@@ -42,8 +42,6 @@ public class MessageEventListener {
     @Autowired
     private eShopService eShopService;
     
-    @Autowired
-    private CustomerRepository customerRepository; 
 
     private static Logger logger = LoggerFactory.getLogger(MessageEventListener.class);
 
@@ -53,11 +51,22 @@ public class MessageEventListener {
     public void updateLoyalityPoints(@Payload EventMessage<OrderMessage> eventMessage) throws Exception {
         OrderMessage orderMessage = eventMessage.getPayload();
         logger.info("Payload received: "+ orderMessage.toString());
-        Customer customer = customerRepository.findCustomerByCustomerId(Integer.parseInt(orderMessage.getCustomerId()));
-        customer.setNmbr_of_loyalty_points(customer.getNmbr_of_loyalty_points() + Integer.parseInt(orderMessage.getLoyalityPoints()));
+        Customer customer = eShopService.addLoyalityPoints(Integer.parseInt(orderMessage.getCustomerId()), Integer.parseInt(orderMessage.getLoyalityPoints()));
         orderMessage.setStatus("LoyalityPoints updated");
         messageEventSender.send(new EventMessage<>("UpdateLoyalityPoints", orderMessage));
     }
+    
+    @StreamListener(target = Sink.INPUT,
+            condition="(headers['type']?:'')=='CalculateLoyalityPoints'")
+    @Transactional
+    public void caluclateLoyalityPoints(@Payload EventMessage<OrderMessage> eventMessage) throws Exception {
+        OrderMessage orderMessage = eventMessage.getPayload();
+        logger.info("Payload received: "+ orderMessage.toString());
+        Customer customer = eShopService.caluclateLoyalityPoints(Integer.parseInt(orderMessage.getCustomerId()), Integer.parseInt(orderMessage.getLoyalityPoints()));
+        orderMessage.setStatus("LoyalityPoints caluclated but not updated: " + customer.getNmbr_of_loyalty_points());
+        messageEventSender.send(new EventMessage<>("UpdateLoyalityPoints", orderMessage));
+    }
+    
 
 
 }

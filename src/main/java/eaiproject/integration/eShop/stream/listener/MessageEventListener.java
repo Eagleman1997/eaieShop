@@ -52,7 +52,7 @@ public class MessageEventListener {
         logger.info("Payload received: "+ orderMessage.toString());
         Customer customer = eShopService.addLoyalityPoints(Integer.parseInt(orderMessage.getCustomerId()), Integer.parseInt(orderMessage.getLoyalityPoints()));
         orderMessage.setStatus("LoyalityPoints updated");
-        messageEventSender.send(new EventMessage<>("UpdatePayment", orderMessage));
+        messageEventSender.send(new EventMessage<>("RequestPayment", orderMessage));
     }
 
 }

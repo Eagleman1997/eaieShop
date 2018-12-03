@@ -14,6 +14,7 @@ import eaiproject.integration.eShop.business.client.CheckoutAdapter;
 import eaiproject.integration.eShop.data.domain.Shampoo;
 import eaiproject.integration.eShop.stream.message.EventMessage;
 import eaiproject.integration.eShop.stream.message.OrderMessage;
+import eaiproject.integration.eShop.stream.sender.MessageEventSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.UUID;
 public class CheckoutController {
 
     @Autowired private CheckoutAdapter checkoutAdapter;
+    @Autowired private MessageEventSender eventSender;
 
     @GetMapping(path = "/checkout", produces = "text/plain")
     public ResponseEntity<String> getCheckout(){
@@ -41,15 +43,15 @@ public class CheckoutController {
         		3, //NumersOfItem - Integer
         		shampoos, // order
         		"checkout", //Status
-        		"", // First Name
-        		"", // Last Name
-        		"", // shipping_address_name
-        		"", // shipping_address_street
-        		"", // shipping_address_location
+        		"Lukas", // First Name
+        		"Gehrig", // Last Name
+        		"Lukas Gehrig", // shipping_address_name
+        		"Musterstrasse 1", // shipping_address_street
+        		"8000 Zürich", // shipping_address_location
         		"", // loyalityPoints
         		"" // parcel_service
         		); 
-        checkoutAdapter.doCheckout(orderMessage);
+        eventSender.send(new EventMessage<>("RequestPayment", orderMessage));
         return ResponseEntity.ok(orderMessage.toString());
     }
 }

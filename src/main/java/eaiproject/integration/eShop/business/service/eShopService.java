@@ -1,19 +1,13 @@
 package eaiproject.integration.eShop.business.service;
 
-import java.util.List;
-import java.util.UUID;
-
-import org.springframework.stereotype.Service;
-
 import eaiproject.integration.eShop.data.domain.Customer;
 import eaiproject.integration.eShop.data.repository.CustomerRepository;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class eShopService {
 	
 	@Autowired
@@ -24,7 +18,7 @@ public class eShopService {
     public Customer caluclateLoyalityPoints(Integer customerId, Integer loyalityPoints) throws Exception {
         logger.info("caluculateLoyalityPoints() for a customer with Id:  " + customerId + " and points " + loyalityPoints);
         // ...
-        Customer customer = customerRepository.findCustomerByCustomerId(customerId);
+        Customer customer = customerRepository.findById(customerId).orElse(null);
         
         // Calculate
         Integer newLoyalityPoints = 100 / loyalityPoints;
@@ -35,7 +29,7 @@ public class eShopService {
     }
     
     public Customer addLoyalityPoints(Integer customerId, Integer loyalityPoints) throws Exception {
-        Customer customer = customerRepository.findCustomerByCustomerId(customerId);
+        Customer customer = customerRepository.findById(customerId).orElse(null);
         
         // Calculate
         Integer newLoyalityPoints = 100 / loyalityPoints;

@@ -1,15 +1,8 @@
 package eaiproject.integration.eShop.data.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
-
 import eaiproject.integration.eShop.data.domain.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-
-
-
-public interface CustomerRepository extends JpaRepository<Customer, Integer>{
-	
-	public Customer findCustomerByCustomerId(@Param("customer_id") Integer CustomerId);
-
-}
+@Repository
+public interface CustomerRepository extends JpaRepository<Customer, Integer>{}

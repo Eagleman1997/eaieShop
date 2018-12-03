@@ -1,5 +1,9 @@
 server:
   port: 8086
+
+spring:
+  profiles:
+    active: local
   cloud:
     stream:
       bindings:

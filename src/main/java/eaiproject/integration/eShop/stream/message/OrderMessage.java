@@ -46,7 +46,6 @@ public class OrderMessage {
         } else {
         	this.amount = amount;
         }
-        this.amount = amount;
         this.numberOfItems = numberOfItems;
         this.shampoos = shampoos;
     	this.first_name = first_name;

@@ -37,10 +37,10 @@ public class CheckoutController {
     	List<Shampoo> shampoos = new ArrayList<>();
     	
     	// Generate some Shampoos
-    	shampoos.add(new Shampoo(Integer.parseInt(UUID.randomUUID().toString()), "Deep Space", "Axe", "AllinOneXL", 8.30));
-    	shampoos.add(new Shampoo(Integer.parseInt(UUID.randomUUID().toString()), "Africa", "Axe", "AllinOneXL", 9.30));
-    	shampoos.add(new Shampoo(Integer.parseInt(UUID.randomUUID().toString()), "Adrenaline", "Axe", "AllinOneXL", 5.30));
-    	shampoos.add(new Shampoo(Integer.parseInt(UUID.randomUUID().toString()), "Excite", "Axe", "AllinOneXL", 10.30));
+    	shampoos.add(new Shampoo(new Integer(42), "Deep Space", "Axe", "AllinOneXL", 8.30));
+    	shampoos.add(new Shampoo(new Integer(42), "Africa", "Axe", "AllinOneXL", 9.30));
+    	shampoos.add(new Shampoo(new Integer(42), "Adrenaline", "Axe", "AllinOneXL", 5.30));
+    	shampoos.add(new Shampoo(new Integer(42), "Excite", "Axe", "AllinOneXL", 10.30));
     	
         OrderMessage orderMessage = new OrderMessage(
         		UUID.randomUUID().toString(), // OrderId (New)

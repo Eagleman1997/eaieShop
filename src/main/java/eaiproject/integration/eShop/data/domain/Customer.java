@@ -28,7 +28,16 @@ public class Customer {
 		super();
 	}
 
-
+	/**
+	 * Generate a new Customer typically, need the follow parameter for a correct process working
+	 * @param customerId
+	 * @param first_name
+	 * @param last_name
+	 * @param shipping_address_name
+	 * @param shipping_address_street
+	 * @param shipping_address_location
+	 * @author Lukas Weber
+	 */
 	public Customer(Integer customerId, String first_name, String last_name, String shipping_address_name,
 			String shipping_address_street, String shipping_address_location) {
 		this.customerId = customerId;
@@ -38,6 +47,18 @@ public class Customer {
 		this.shipping_address_street = shipping_address_street;
 		this.shipping_address_location = shipping_address_location;
 		this.customerType = "NORMAL";
+	}
+	
+	/**
+	 * Generate a temporary Customer 
+	 * Need a "normal" customer for the id. Set only with the correct id and the new calcualting loyality points
+	 * @param customerId
+	 * @param nmbr_of_loyalty_points
+	 * @author Lukas Weber
+	 */
+	public Customer(Integer customerId, Integer nmbr_of_loyalty_points) {
+		this.customerId = customerId;
+		this.nmbr_of_loyalty_points = nmbr_of_loyalty_points;
 	}
 
 

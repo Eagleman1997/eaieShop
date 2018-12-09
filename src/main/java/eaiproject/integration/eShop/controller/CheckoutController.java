@@ -26,6 +26,12 @@ public class CheckoutController {
     @Autowired private CheckoutAdapter checkoutAdapter;
     @Autowired private MessageEventSender eventSender;
 
+    /**
+     * Generate a Checkout from the eShop with some Shampoos and the customer credientials
+     * @param do a http-request with /checkout to start the process
+     * @return orderMessage to start the Use Case
+     * @author Lukas Weber
+     */
     @GetMapping(path = "/checkout", produces = "text/plain")
     public ResponseEntity<String> getCheckout(){
     	List<Shampoo> shampoos = new ArrayList<>();
@@ -49,7 +55,7 @@ public class CheckoutController {
         		"Musterstrasse 1", // shipping_address_street
         		"8000 Zürich", // shipping_address_location
         		"", // loyalityPoints
-        		"" // parcel_service
+        		"DHL" // parcel_service
         		); 
         eventSender.send(new EventMessage<>("RequestPayment", orderMessage));
         return ResponseEntity.ok(orderMessage.toString());

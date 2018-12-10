@@ -31,7 +31,7 @@ public class eShopService {
     	logger.info("caluculateLoyalityPoints() for a customer with Id:  " + customerId + " and last amount " + amount);
         
     	//find the customer
-        Customer customer = customerRepository.findById(customerId).orElse(null);
+        Customer customer = retrieveCustomerById(customerId);
     	
         // Calculate
         Double calcAmout = 100 / amount;
@@ -59,13 +59,22 @@ public class eShopService {
     public Customer addLoyalityPoints(Customer calcCustomer) throws Exception {
         
     	//find the customer
-        Customer customer = customerRepository.findById(calcCustomer.getCustomerId()).orElse(null);
+        Customer customer = retrieveCustomerById(calcCustomer.getCustomerId());
     	
     	// Add
         customer.setNmbr_of_loyalty_points(customer.getNmbr_of_loyalty_points() + calcCustomer.getNmbr_of_loyalty_points());
         logger.info("New LoyalityPoints are: " + customer.getNmbr_of_loyalty_points());
         
         return customer;
+    }
+    
+    /**
+     * For return the customer for this specific use case
+     * @param customerId
+     * @return new Customer Lukas Gehrig, VIP-Level 1
+     */
+    public Customer retrieveCustomerById(Integer customerId) {
+        return new Customer(1, "Lukas", "Gehrig", "Lukas Gehrig", "Musterstrasse 1", "8000 Zürich", "VIP1", 11000);
     }
 
 }

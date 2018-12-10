@@ -59,7 +59,7 @@ public class MessageEventListener {
         logger.info("Payload received: "+ orderMessage.toString());
         Customer calcCustomer = eShopService.caluclateLoyalityPoints(Integer.parseInt(orderMessage.getCustomerId()), orderMessage.getAmount());       
         Customer customer = eShopService.addLoyalityPoints(calcCustomer);
-        orderMessage.setLoyalityPoints(customer.getCreditcard_number());
+        orderMessage.setLoyalityPoints(customer.getNmbr_of_loyalty_points().toString());
         orderMessage.setStatus("LoyalityPoints updated");
         logger.info("Loyality Points are updated: "+ orderMessage.getLoyalityPoints().toString());
     }

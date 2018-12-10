@@ -8,6 +8,7 @@ package eaiproject.integration.eShop.stream.sender;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eaiproject.integration.eShop.stream.message.EventMessage;
+import eaiproject.integration.eShop.stream.message.OrderMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -28,10 +29,9 @@ public class MessageEventSender {
     @Autowired
     ObjectMapper objectMapper;
 
-    public void send(EventMessage<?> eventMessage) {
+    public void send(EventMessage<OrderMessage> eventMessage) {
         try {
-            String jsonMessage = objectMapper.writeValueAsString(eventMessage);
-            messageChannel.send(MessageBuilder.withPayload(jsonMessage).setHeader("type", eventMessage.getType()).build());
+            messageChannel.send(MessageBuilder.withPayload(eventMessage).setHeader("type", eventMessage.getType()).build());
         } catch (Exception e) {
             throw new RuntimeException("Could not transform and send message due to: "+ e.getMessage(), e);
         }

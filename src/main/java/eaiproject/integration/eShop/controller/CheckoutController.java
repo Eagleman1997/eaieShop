@@ -37,27 +37,28 @@ public class CheckoutController {
     	List<Shampoo> shampoos = new ArrayList<>();
     	
     	// Generate some Shampoos
-    	shampoos.add(new Shampoo(new Integer(42), "Deep Space", "Axe", "AllinOneXL", 8.30));
-    	shampoos.add(new Shampoo(new Integer(42), "Africa", "Axe", "AllinOneXL", 9.30));
-    	shampoos.add(new Shampoo(new Integer(42), "Adrenaline", "Axe", "AllinOneXL", 5.30));
-    	shampoos.add(new Shampoo(new Integer(42), "Excite", "Axe", "AllinOneXL", 10.30));
+    	shampoos.add(new Shampoo(new Integer(5), "Deep Space", "Axe", "AllinOneXL", 8.30));
+    	shampoos.add(new Shampoo(new Integer(6), "Africa", "Axe", "AllinOneXL", 9.30));
+    	shampoos.add(new Shampoo(new Integer(7), "Adrenaline", "Axe", "AllinOneXL", 5.30));
+    	shampoos.add(new Shampoo(new Integer(8), "Excite", "Axe", "AllinOneXL", 10.30));
     	
         OrderMessage orderMessage = new OrderMessage(
-        		UUID.randomUUID().toString(), // OrderId (New)
+        		new Integer(11).toString(), // OrderId (New)
         		"1", // CustomerId
         		0.00, // Amount - Double // Wenn nichts mitgegeben wird das berechnet von den Shampoos
         		3, //NumersOfItem - Integer
-        		shampoos, // order
-        		"checkout", //Status
+        		shampoos, // shampoos
         		"Lukas", // First Name
         		"Gehrig", // Last Name
         		"Lukas Gehrig", // shipping_address_name
         		"Musterstrasse 1", // shipping_address_street
         		"8000 Zürich", // shipping_address_location
-        		"", // loyalityPoints
-        		"DHL" // parcel_service
-        		); 
-        eventSender.send(new EventMessage<>("RequestPayment", orderMessage));
+        		"DHL", // parcel_service
+        		"OrderPlaced"
+        		);
+        orderMessage.setStatus("OrderPlaced");
+        EventMessage message = new EventMessage<>("RequestPayment", orderMessage);
+        eventSender.send(message);
         return ResponseEntity.ok(orderMessage.toString());
     }
 }

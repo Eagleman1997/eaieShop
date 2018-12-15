@@ -34,7 +34,7 @@ public class eShopService {
         Customer customer = retrieveCustomerById(customerId);
     	
         // Calculate
-        Double calcAmout = 100 / amount;
+        Double calcAmout = amount / 100;
         Integer newLoyalityPoints = (int) Math.round(calcAmout);
         
         logger.info("LoyalityPoints from the last amount are calculated: " + newLoyalityPoints);
